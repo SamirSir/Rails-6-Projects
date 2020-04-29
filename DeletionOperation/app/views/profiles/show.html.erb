@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @profile.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @profile.address %>
+</p>
+<% if @profile.photo.attached? %>
+	<%= form_with(model: @profile, local: true) do |form| %>
+		<div style="max-width:400px;max-height:400px;">
+			<%= image_tag(url_for(@profile.photo), style:"width:400px;") %>
+		</div>
+		<%= form.label :remove_photo %>
+		<%= form.check_box :remove_photo %>
+	<div class="actions">
+		<%= form.submit "Delete" %>
+	</div>
+	<% end %>
+<% end %>
+
+
+
+<%= link_to 'Edit', edit_profile_path(@profile) %> |
+<%= link_to 'Back', profiles_path %>

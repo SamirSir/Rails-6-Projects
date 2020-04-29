@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @blog.title %>
+</p>
+
+<% if @blog.image.attached? %>
+	<div>
+		<%= image_tag(@blog.image, style:' height:300px') %>
+		<%= form_with(model: @blog, local: true) do |form| %>			
+			<%= form.label :remove_image %>
+			<%= form.check_box :remove_image %><br>
+			<%= form.submit   :remove_image %>
+		<% end %>
+	</div>
+
+<% else %>
+	<strong>No Cover Photo</strong>
+<% end %>
+
+<p>
+  <strong>Caption:</strong>
+  <%= @blog.caption %>
+</p>
+
+<% if @blog.pictures.attached? %>
+	<div >
+		<% @blog.pictures.each do |picture| %>
+			<div style="border:1px dashed red;max-width:200px; max-height:300px;display: inline-block;">
+				<%= image_tag(picture, style: 'max-width:200px;max-height:200px;') %><br>
+				<%= link_to "Delete", delete_picture_attachment_blog_path(picture), method: :delete %>
+			</div>
+		<% end %>	
+	</div>
+<% end %>
+<br>
+
+<div>
+	<%= link_to  @blog.note.filename  %>
+	<%= link_to '(Downlod)
+	', @blog.note, download: '' %>
+</div>
+
+<div> <strong>Author: </strong>
+	<% id = @blog.user_id %>
+	<% activeuser = User.find(params[:id]=id) %>
+	<%= activeuser.username %>
+</div>
+
+<hr>
+<%= link_to 'Edit', edit_blog_path(@blog) %> |
+<%= link_to 'Back', blogs_path %>

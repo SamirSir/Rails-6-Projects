@@ -1,0 +1,20 @@
+
+<p>
+  <strong>Name:</strong>
+  <%= @gallary.name %>
+</p>
+
+<p>
+  <strong>Detail:</strong>
+  <%= @gallary.detail %>
+</p>
+
+
+
+<% @gallary.collection.count.times do |g| %>
+	<%= image_tag(url_for(@gallary.thumbnail(g)))  %>
+<% end %><br>
+
+
+<%= link_to 'Edit', edit_gallary_path(@gallary) %> |
+<%= link_to 'Back', gallaries_path %>

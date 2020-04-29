@@ -1,0 +1,55 @@
+  <link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
+
+  <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+  <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+
+
+
+<p>
+  <strong>Title:</strong>
+  <%= @content.title %>
+</p>
+
+<%= link_to favourite_text, favourite_update_path(content: @content), id: 'favourite_link', remote: true %>  
+
+<p>
+  <strong>Body:</strong>
+  <%= @content.body %>
+</p>
+
+<div style="max-width:400px; max-height:400px;">
+	<strong>Thumbnail: </strong><br>
+	<%= image_tag(@content.thumbnail) %>
+</div>
+
+
+<div style="width:400px; height:400px;">
+	<strong>Video:</strong><br>
+	<%= video_tag(url_for(@content.video), style:'width:100%; height:auto', controls: '') %>
+</div>
+<p>Video with videojs controller</p>
+<video
+    id="my-video"
+    class="video-js"
+    controls
+    preload="auto"
+    width="640"
+    height="264"
+    poster="<%= url_for(@content.thumbnail) %>"
+    data-setup="{}"
+  >
+    <source src="<%= url_for(@content.video) %>" type="video/mp4" />
+  </video>
+
+
+<p>
+  <strong>User:</strong>
+  <%= @content.user.email %>
+</p>
+<% if @content.user==current_user %>
+<%= link_to 'Edit', edit_content_path(@content) %> |<%= link_to 'Destroy', @content, method: :delete, data: { confirm: 'Are you sure?' } %>|
+<% end %>
+<%= link_to 'Back', contents_path %>
+
+
+<script src="https://vjs.zencdn.net/7.7.5/video.js"></script>

@@ -1,0 +1,23 @@
+<div class="jumbtron">
+	<h1 style="text-align:center;"> <%= current_user.username %></h1>
+	<div class="well" id="chatbox" style="height:250px; border:solid 1px #222222; overflow-y: scroll;">
+		<% @messages.each do |message| %>
+			<%= render 'messages/message', message: message %>
+		<% end %>
+	</div>
+	<%= @messages.count %> Messages
+
+
+	<% if current_user %>
+		<%= form_with model: @message do |f| %>
+		<div class="input-group mb-3">
+			<%= f.text_field :body, placeholder: "Say something . . .", class: "form-control" %>
+			<div class="input-group-append">
+				<%= f.submit "Send", class: "btn btn-primary" %>
+			</div>
+		</div>
+		<% end %>
+	<% else %>
+		<p>You need to <%= link_to "Sign In", new_user_session_path %> for chatting! </p>
+	<% end %>
+</div>

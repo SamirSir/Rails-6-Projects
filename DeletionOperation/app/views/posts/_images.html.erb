@@ -1,0 +1,8 @@
+
+
+		<% @post.images.each do |image| %>
+			<div style="border:1px dashed red;max-width:200px; max-height:200px;display: inline-block; ">
+				<%= image_tag(image, style:'max-width:200px; max-height:200px;') %><br>
+				<%= link_to 'delete', delete_image_attachment_post_url(image), method: :delete %>
+			</div>
+		<% end %>

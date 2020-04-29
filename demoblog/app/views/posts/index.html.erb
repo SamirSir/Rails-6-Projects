@@ -1,0 +1,31 @@
+<%= content_for :page_title, "Index" %>
+
+
+<section class="section">
+	<div class="container">
+		<% @posts.each do |p| %>
+			<div class="card"> 
+				<div class="card-content">
+					<div class="media">
+						<div class="media-content">
+							<p class="title is-4">
+							<%= link_to p.title, post_path(p.id) %>	
+							</p>
+						</div>
+					</div>
+					<div class="content">
+						<%= p.content %>
+					</div>
+					<div class="content">
+						<%= p.comments.count %> Comments
+					</div>
+					<div class="comment-count">
+						<span class="tag is-rounded">
+							<%# comment count %>
+						</span>
+					</div>
+				</div>
+			</div>	
+		<% end %>
+	</div>	
+</section>

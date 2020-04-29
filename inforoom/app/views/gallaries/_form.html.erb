@@ -1,0 +1,32 @@
+<%= form_with(model: gallary, local: true) do |form| %>
+  <% if gallary.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(gallary.errors.count, "error") %> prohibited this gallary from being saved:</h2>
+
+      <ul>
+        <% gallary.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :detail %>
+    <%= form.text_area :detail %>
+  </div>
+
+  <div class="field">
+    <%= form.label :collection %>
+    <%= form.file_field :collection, multiple: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

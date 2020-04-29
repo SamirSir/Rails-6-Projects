@@ -1,0 +1,43 @@
+<h1>Welcome Home</h1>
+
+<h2>Favorite post:</h2>
+<% current_user.favourites.each do |fav| %>
+  You favourited : 
+  <%= link_to fav.content.title, content_path(fav.content.id) %> At: [<%= fav.created_at.strftime("%I:%M %p ") %>]<br>
+<% end %>
+<h1>Contents</h1>
+<%= "The current user is "+ current_user.username %><hr
+>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contents.each do |content| %>
+  
+        <tr>
+          <td><%= content.title %></td>
+          <td><%= content.user.username %></td>
+          <td><%= link_to 'Show', content %></td>
+          <% if content.user==current_user  %>
+            <td><%= link_to 'Edit', edit_content_path(content) %></td>
+            <td><%= link_to 'Destroy', content, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+       
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Content', new_content_path %>|
+<%= link_to 'Home page', root_path %>
+<hr>
+<b><%= will_paginate(@contents) %></b>
